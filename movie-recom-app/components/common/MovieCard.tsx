@@ -1,8 +1,16 @@
 import { MovieCardProps } from "@/interface";
 import Image from "next/image";
-const MovieCard: React.FC<MovieCardProps> = ({ title, poster, rating }) => {
+import { useRouter } from "next/router";
+const MovieCard: React.FC<MovieCardProps> = ({ title, poster, rating, id }) => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`/movie/${id}`);
+  };
   return (
-    <div className="bg-gray-900 rounded overflow-hidden shadow-mg hover:scale-105 transition-transform duration-300 cursor-pointer">
+    <div
+      className="bg-gray-900 rounded overflow-hidden shadow-mg hover:scale-105 transition-transform duration-300 cursor-pointer"
+      onClick={handleClick}
+    >
       <Image
         src={poster}
         alt={title}

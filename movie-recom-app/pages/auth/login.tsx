@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Login: React.FC = () => {
   return (
-    <div className="flex justify-center items-center  min-h-screen  bg-gray-900  ">
+    <div className="flex justify-center items-center  min-h-screen  bg-gray-950  ">
       <div className="shadow-2xl rounded-lg bg-transparent px-20 py-8 border-t-4 border-cyan-800 ">
         <h1 className="text-2xl mb-4 text-white flex justify-center ">Login</h1>
         <form action="" className="flex flex-col gap-4">
@@ -24,7 +24,7 @@ const Login: React.FC = () => {
           <p className="ml-1 text-gray-500 ">
             Don't have an account?
             <span className="text-green-400 ml-2">
-              <Link href="/auth/login">signup</Link>
+              <Link href="/auth/signup">signup</Link>
             </span>
           </p>
         </form>

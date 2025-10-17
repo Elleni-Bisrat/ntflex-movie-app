@@ -2,28 +2,44 @@
 import React, { useState } from "react";
 import MovieCard from "@/components/common/MovieCard";
 import { useSearch } from "@/context/SearchContext";
-
+import { useEffect } from "react";
 const Discover = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [visibleCount, setVisibleCount] = useState(4);
   const { searchTerm, setSearchTerm } = useSearch();
+  const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  const [movies, setMovies] = useState<any[]>([]);
 
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const url =
+          searchTerm.trim() === ""
+            ? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&page=1`
+            : `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchTerm}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        setMovies(data.results || []);
+        console.log("Fetched movies:", data.results);
+      } catch (err) {
+        console.log("Error fetching movies:", err);
+      }
+    };
+    fetchMovies();
+  }, [searchTerm, API_KEY]);
   const categories = ["All", "Action", "Romance", "Comedy", "Sci-Fi", "Horror"];
-
-  const movies = [
-    { id: 1, title: "Inception", poster: "/image.png", rating: 8.7, genre: "Sci-Fi" },
-    { id: 2, title: "Titanic", poster: "/image1.png", rating: 9.7, genre: "Romance" },
-    { id: 3, title: "Joker", poster: "/image2.png", rating: 8.9, genre: "Action" },
-    { id: 4, title: "Interstellar", poster: "/image3.png", rating: 9.0, genre: "Sci-Fi" },
-    { id: 5, title: "The Conjuring", poster: "/image.png", rating: 7.9, genre: "Horror" },
-    { id: 6, title: "The Mask", poster: "/assets/image.png", rating: 7.9, genre: "Comedy" },
-  ];
-
-  const filteredMovies = movies.filter(
-    (movie) =>
-      (selectedCategory === "All" || movie.genre === selectedCategory) &&
-      movie.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const genreMap: Record<string, number> = {
+    Action: 28,
+    Romance: 10749,
+    Comedy: 35,
+    "Sci-Fi": 878,
+    Horror: 27,
+  };
+  const filteredMovies = movies.filter((movie) => {
+    if (selectedCategory === "All") return true;
+    if (!movie.genre_ids) return false;
+    return movie.genre_ids.includes(genreMap[selectedCategory]);
+  });
 
   return (
     <div className="min-h-screen bg-gray-950 px-6 py-10">
@@ -62,9 +78,20 @@ const Discover = () => {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-        {filteredMovies.slice(0, visibleCount).map((movie) => (
-          <MovieCard key={movie.id} title={movie.title} poster={movie.poster} rating={movie.rating} />
-        ))}
+        {filteredMovies.slice(0, visibleCount).map((movies) => {
+          return (
+            <MovieCard
+              key={movies.id}
+              title={movies.title}
+              poster={
+                movies.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${movies.poster_path}`
+                  : "/placeholder.png"
+              }
+              rating={movies.vote_average?.toFixed(1)}
+            />
+          );
+        })}
       </div>
 
       {visibleCount < filteredMovies.length && (

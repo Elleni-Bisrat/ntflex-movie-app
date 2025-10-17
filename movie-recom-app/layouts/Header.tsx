@@ -28,7 +28,7 @@ const Header: React.FC = () => {
           <Link href="/discover">Discover</Link>
           <Link href="/favorite">Favorite</Link>
           <Link href="/rated">Top Rated</Link>
-          <Link href="/genres">Genres</Link>
+          <Link href="/playlist">playlist</Link>
           <Link href="/subscribe">Subscription</Link>
 
           <input

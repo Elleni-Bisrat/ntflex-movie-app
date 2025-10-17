@@ -2,8 +2,8 @@ import Link from "next/link";
 
 const Signup: React.FC = () => {
   return (
-    <div className="flex justify-center items-center  min-h-screen  bg-gray-900  ">
-      <div className="shadow-2xl rounded-lg bg-transparent px-20 py-8 border-t-4 border-cyan-800 ">
+    <div className="flex justify-center items-center  min-h-screen  bg-gray-950  ">
+      <div className="shadow-2xl rounded-lg bg-transparent  px-20 py-8 border-t-4 border-cyan-800 ">
         <h1 className="text-2xl mb-4 text-white flex justify-center ">
           Signup
         </h1>
