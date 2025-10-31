@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import MovieCard from "@/components/common/MovieCard";
 import { useSearch } from "@/context/SearchContext";
 import { useEffect } from "react";
+import { Search, Menu, X, Play, Star } from "lucide-react";
+
 const Discover = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [visibleCount, setVisibleCount] = useState(4);
+  const [visibleCount, setVisibleCount] = useState(2);
   const { searchTerm, setSearchTerm } = useSearch();
   const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
   const [movies, setMovies] = useState<any[]>([]);
@@ -42,16 +44,17 @@ const Discover = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-950 px-6 py-10">
-      <h1 className="text-3xl font-bold text-white mb-6">Discover Movies</h1>
+    <div className="min-h-screen bg-white px-6 py-10">
+      <h1 className="text-3xl font-bold text-black mb-6">Discover Movies</h1>
 
       <div className="flex flex-wrap justify-between items-center mb-12 gap-3">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
         <input
           type="text"
-          placeholder="🔍 Search for a movie..."
+          placeholder="Search for a movie..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="bg-transparent text-white px-4 py-2 rounded-md w-full sm:w-1/3 outline-none"
+          className="bg-transparent text-black px-4 py-2 rounded-md w-full sm:w-1/3 outline-none placeholder-gray-400"
         />
 
         <div className="flex flex-wrap gap-2">
@@ -62,7 +65,7 @@ const Discover = () => {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 selectedCategory === category
                   ? "bg-green-500 text-white"
-                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                  : "border border-gray-400 text-black hover:bg-green-700"
               }`}
             >
               {category}
@@ -70,7 +73,7 @@ const Discover = () => {
           ))}
         </div>
 
-        <select className="bg-gray-800 text-white px-3 py-1 rounded outline-none">
+        <select className="bg-white text-black border border-gray-400 px-3 py-1 rounded outline-none">
           <option>Sort By</option>
           <option>Rating</option>
           <option>Title</option>

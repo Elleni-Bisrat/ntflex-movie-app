@@ -32,9 +32,8 @@ export default function Playlist() {
             <h1 className="text-3xl font-bold">My Movie Playlist</h1>
             <p className="text-gray-400">{playlist.length} movies in playlist</p>
           </div>
-          
           {playlist.length > 0 && (
-            <button 
+            <button
               onClick={clearPlaylist}
               className="bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded transition-colors"
             >

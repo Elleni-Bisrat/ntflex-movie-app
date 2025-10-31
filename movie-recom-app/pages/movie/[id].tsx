@@ -75,8 +75,6 @@ export default function MovieDetail() {
         const newPlaylist = [...playlist,movieToAdd];
         localStorage.setItem('moviePlaylist',JSON.stringify(newPlaylist));
         setInPlaylist(true);
-        // playlist.push(movieToAdd);
-        // localStorage.setItem("moviePlaylist", JSON.stringify(updatedPlaylist));
       }
 
     } catch (error) {
@@ -111,9 +109,9 @@ export default function MovieDetail() {
 
   if (!movie) {
     return (
-      <div className="bg-gray-950 min-h-screen text-white flex justify-center items-center">
-        <div className="text-center">
-          <h2 className="text-2xl mb-4">Movie not found</h2>
+      <div className="bg-gray-950 min-h-screen text-white flex justify-center items-center ">
+        <div className="text-center ">
+          <h2 className="text-2xl mb-4 ">Movie not found</h2>
           <Link href="/" className="text-red-600 hover:text-red-400">
             ← Back to Home
           </Link>
@@ -123,8 +121,8 @@ export default function MovieDetail() {
   }
 
   return (
-    <div className="bg-gray-950 min-h-screen text-white">
-      <div className="container mx-auto px-4 py-8">
+    <div className="bg-gray-950 min-h-screen text-white ">
+      <div className="container mx-auto px-4 py-8 ml-8">
         <Link
           href="/"
           className="text-red-600 hover:text-red-400 mb-4 inline-block"
@@ -146,14 +144,14 @@ export default function MovieDetail() {
           </div>
 
           <div className="md:w-2/3">
-            <h1 className="text-4xl font-bold mb-4">
+            <h1 className="text-3xl text-cyan-400 font-bold mb-4">
               {movie.title || "Unknown Title"}
             </h1>
-            <div className="flex items-center gap-4 mb-4 flex-wrap">
-              <span className="bg-red-600 px-3 py-1 rounded">
+            <div className="flex items-center gap-8 mb-4 flex-wrap">
+              <span className="bg-gradient-to-r from-amber-600 px-3 py-1 rounded">
                 ⭐ {getRating()}
               </span>
-              <span>{getReleaseYear()}</span>
+              <span className="">{getReleaseYear()}</span>
               <span>{getRuntime()}</span>
             </div>
 
@@ -162,30 +160,30 @@ export default function MovieDetail() {
                 onClick={togglePlaylist}
                 className={`px-6 py-2 rounded font-semibold ${
                   inPlaylist
-                    ? "bg-gray-600 hover:bg-gray-700"
-                    : "bg-red-600 hover:bg-red-700"
+                    ? "bg-gradient-to-r  to-red-500 hover:bg-gray-700"
+                    : "bg-gradient-to-r  to-red-500"
                 } transition-colors`}
               >
                 {inPlaylist ? "Remove from Playlist" : "Add to Playlist"}
               </button>
               <Link href="/playlist">
-                <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded font-semibold transition-colors">
+                <button className="px-6 py-2 bg-gradient-to-r from-blue-600 hover:scale(105) rounded font-semibold transition-colors">
                   View My Playlist
                 </button>
               </Link>
             </div>
 
-            <p className="text-gray-300 text-lg mb-4">
+            <p className="text-gray-400 text-md mb-4 w-150">
               {movie.overview || "No description available."}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
               <div>
-                <h3 className="font-semibold text-red-600 mb-2">Genres</h3>
+                <h3 className="font-semibold text-cyan-600 mb-2">Genres</h3>
                 <p>{getGenres()}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-red-600 mb-2">Language</h3>
+                <h3 className="font-semibold text-cyan-600 mb-2">Language</h3>
                 <p className="uppercase">{movie.original_language || "N/A"}</p>
               </div>
             </div>
